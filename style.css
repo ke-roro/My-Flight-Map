@@ -1,0 +1,254 @@
+#map {
+    height: 1000px;
+    width: 100%;
+    position: relative;
+    z-index: 0;
+}
+
+#flight-menu {
+    position: absolute;
+    z-index: 100;
+    top: 200px;
+    display: flex;/*綺麗に並べる*/
+    flex-direction: column;
+    gap: 5px;
+}
+
+#flight-menu button {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;/*角を丸く*/
+    text-align: left;/*文字を左寄せ*/
+    font-size: 0.95rem;
+    color: #444;
+    transition: all 0.3s ease;/*変化を滑らかに*/
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);/*影*/
+   
+ }
+
+ #flight-menu button.active-btn {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
+    transform: translateY(-2px);
+ }
+
+ #flight-menu button:not(.active-btn):hover { /*notはactive-btnが発動していないときの意味*/
+    background-color: #f8f9fa;
+    border-color: #007bff;/*枠線を青色に*/
+    color:#007bff;
+    transform: translateY(-2px);/*ボタンを浮かせる*/
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ }
+
+ /*ボタンを押し込む演出*/
+ #flight-menu button:active {
+    transform: translateY(2px) !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.05s ease;
+ }
+
+
+.custom-plane-icon {
+ background: transparent;
+ border: none;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ filter: drop-shadow(0 0 2px white);
+}
+
+#hamburger-btn {
+    background-color: white;
+    padding: 10px;
+    border-radius: 50%;/*丸い形にする*/
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;/*縦並び*/
+    justify-content: space-around;/*要素の周りに均等な余白。display: flexが必要*/
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    
+}
+
+#hamburger-btn span {
+    display: block;
+    width: 35px;
+    height: 2px;
+    margin: 3px 0;
+    background-color:black;
+    transition: all 0.3s ease-in-out;
+    transform-origin: center;
+
+}
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 250px;
+    height: 100%;
+    background-color: white;
+    box-shadow: 2px 0 5px rgba(0,0,0,0,3);
+    z-index: 150;
+    transition: 0.3s;
+    padding: 20px
+}
+
+#sidebar.open {
+    left: 0;
+}
+
+#sidebar.open ~ #hamburger-btn span:nth-child(1) { /*上の線を斜め下に動かして回転*/
+    transform: translateY(9px) rotate(45deg); /*Yは縦移動、Xは横、Zは奥行き*/
+    z-index: 200;
+}
+
+#sidebar.open ~ #hamburger-btn span:nth-child(2) {
+    opacity: 0;
+}
+
+#sidebar.open ~ #hamburger-btn span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+    z-index: 200;
+} 
+
+#sidebar h3 {
+    font-family: 'Helvetica Neue', Arial, sans-serif;/*この順番で試して、使えるものを表示する*/
+    font-size: 1.2rem;
+    color: #333;
+    border-bottom: 2px solid #f0f0f0;
+    padding: 10px 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/*黒い幕の設定*/
+#photo-overlay {
+    position: fixed; /*画面に固定*/
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s; /*表示の時にふわっと*/
+}
+
+/*「隠す」しるしの設定*/
+#photo-overlay.hidden {
+    display: none;
+    opacity: 0;
+}
+
+/*写真を表示させる設定*/
+#overlay-content {
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+    color: white;
+}
+
+#photo-title, #photo-counter {
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    margin-bottom: 10px;
+}
+
+#photo-gallery img {
+    display: block;
+    max-width: 100%;
+    max-height: 70vh;/*画面の高さの７０％までに制限*/
+    border: 3px solid white;/*写真に白い縁*/
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+    margin-bottom: 15px;
+    object-fit: contain;
+}
+
+/*閉じるボタンのデザイン*/
+#close-overlay {
+    position: fixed;
+    top: 20px; /*写真の少し上に配置*/
+    right: 30px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid white;
+    border-radius: 50%;
+    color: white;
+    font-size: 40px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#close-overlay:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/*写真と矢印をまとめる箱*/
+#photo-gallery {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/*左右の矢印ボタンの共通デザイン*/
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: 2px solid white;
+    font-size: 24px;
+    padding: 10px 15px;
+    cursor: pointer; /*マウスカーソルの見た目*/
+    border-radius: 50%;
+    z-index: 10;
+    transition: 0.3s;
+}
+
+.nav-btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+/*それぞれの位置調整*/
+#prev-btn {
+    left: -20px;
+}
+
+#next-btn {
+    right: -20px;
+}
+
+/*全体に戻る画面*/
+#reset-btn{
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+    border: none;
+    margin-bottom: 20px;
+}
+
+#reset-btn:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
