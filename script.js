@@ -245,3 +245,39 @@ resetBtn.addEventListener('click', () => {
         duration: 2
     });
 });
+
+
+//airports.csv読み込み
+async function loadAirports(){
+
+    const airports = {};
+    const loadAirportsCSV = await fetch("airports.csv");
+    const loadAirportsData  = await loadAirportsCSV.text();
+    const rows = loadAirportsData.split("\n").slice(1);
+
+    rows.forEach(row => {
+        const columns = row.split(",");
+        const lat = columns[4];
+        const lng = columns[5];
+         const iata = (columns[13] || "").replace(/"/g, "").trim();
+         //console.log(iata);
+
+
+       
+        if(iata){
+            airports[iata] = {
+                lat: lat,
+                lng: lng
+                };
+            
+        }
+
+        
+
+    });
+
+    console.log(airports["KIX"]);
+
+}
+
+loadAirports();
