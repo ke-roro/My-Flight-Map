@@ -247,10 +247,11 @@ resetBtn.addEventListener('click', () => {
 });
 
 
+const airports = {};
+
 //airports.csv読み込み
 async function loadAirports(){
 
-    const airports = {};
     const loadAirportsCSV = await fetch("airports.csv");
     const loadAirportsData  = await loadAirportsCSV.text();
     const rows = loadAirportsData.split("\n").slice(1);
@@ -281,3 +282,14 @@ async function loadAirports(){
 }
 
 loadAirports();
+
+//検索ボックス
+const search = document.getElementById("search-btn");
+search.addEventListener('click', () => {
+    const code = document.getElementById("airport-input").value.toUpperCase();
+    const airport = airports[code];
+    const position = [airport.lat, airport.lng];
+    console.log(position);
+
+    map.flyTo(position,11);
+}) 
