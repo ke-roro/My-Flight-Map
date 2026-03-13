@@ -284,6 +284,7 @@ async function loadAirports(){
 loadAirports();
 
 //検索ボックス
+let searchMarker;
 const search = document.getElementById("search-btn");
 search.addEventListener('click', () => {
     const code = document.getElementById("airport-input").value.toUpperCase();
@@ -292,4 +293,10 @@ search.addEventListener('click', () => {
     console.log(position);
 
     map.flyTo(position,11);
+
+    if(searchMarker){
+        map.removeLayer(searchMarker)
+    }
+    searchMarker = L.marker(position).addTo(map).bindPopup(code);
+    
 }) 
