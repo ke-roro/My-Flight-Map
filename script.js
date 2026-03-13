@@ -289,14 +289,17 @@ const search = document.getElementById("search-btn");
 search.addEventListener('click', () => {
     const code = document.getElementById("airport-input").value.toUpperCase();
     const airport = airports[code];
-    const position = [airport.lat, airport.lng];
-    console.log(position);
 
-    map.flyTo(position,11);
+    if(airport){
+        if(searchMarker){
+        map.removeLayer(searchMarker);
+        }
+        const position = [airport.lat, airport.lng];
+         map.flyTo(position,11);
+         searchMarker = L.marker(position).addTo(map).bindPopup(code);
 
-    if(searchMarker){
-        map.removeLayer(searchMarker)
-    }
-    searchMarker = L.marker(position).addTo(map).bindPopup(code);
+    }else{
+        alert("空港が見つかりません")
+    };
     
 }) 
