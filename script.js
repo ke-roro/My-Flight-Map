@@ -260,25 +260,24 @@ async function loadAirports(){
         const columns = row.split(",");
         const lat = columns[4];
         const lng = columns[5];
-         const iata = (columns[13] || "").replace(/"/g, "").trim();
-         //console.log(iata);
-
-
+        const iata = (columns[13] || "").replace(/"/g, "").trim();
        
         if(iata){
             airports[iata] = {
+                code: iata,
                 lat: lat,
-                lng: lng
-                };
-            
+                lng: lng,
+                name: (columns[3] || "").replace(/"/g, "").trim(),
+                city: (columns[10] || "").replace(/"/g, "").trim()
+                };    
         }
+
 
         
 
     });
 
     console.log(airports["KIX"]);
-
 }
 
 loadAirports();
@@ -287,19 +286,25 @@ loadAirports();
 let searchMarker;
 const search = document.getElementById("search-btn");
 search.addEventListener('click', () => {
-    const code = document.getElementById("airport-input").value.toUpperCase();
-    const airport = airports[code];
+    const keyword = document.getElementById("airport-input").value.toUpperCase();
+    let foundAirport = null;
 
-    if(airport){
+    Object.values(airports).forEach(airport => {
+        if(airport.name.toUpperCase().includes(keyword) || airport.code.toUpperCase().includes(keyword)){
+            foundAirport = airport;
+        }
+    })
+
+    if(foundAirport){
         if(searchMarker){
         map.removeLayer(searchMarker);
         }
-        const position = [airport.lat, airport.lng];
+        const position = [foundAirport.lat, foundAirport.lng];
          map.flyTo(position,11);
-         searchMarker = L.marker(position).addTo(map).bindPopup(code);
+         searchMarker = L.marker(position).addTo(map).bindPopup(foundAirport);
 
     }else{
         alert("空港が見つかりません")
     };
     
-}) 
+});
