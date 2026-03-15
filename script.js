@@ -268,7 +268,8 @@ async function loadAirports(){
                 lat: lat,
                 lng: lng,
                 name: (columns[3] || "").replace(/"/g, "").trim(),
-                city: (columns[10] || "").replace(/"/g, "").trim()
+                city: (columns[10] || "").replace(/"/g, "").trim(),
+                name_jp: (columns[18] || "").replace(/"/g, "").trim()
                 };    
         }
 
@@ -277,7 +278,7 @@ async function loadAirports(){
 
     });
 
-    console.log(airports["KIX"]);
+    console.log(airports["NRT"]);
 }
 
 loadAirports();
@@ -290,7 +291,12 @@ search.addEventListener('click', () => {
     let foundAirport = null;
 
     Object.values(airports).forEach(airport => {
-        if(airport.name.toUpperCase().includes(keyword) || airport.code.toUpperCase().includes(keyword)){
+        if(keyword && (
+            airport.name.toUpperCase().includes(keyword) || 
+            airport.code.toUpperCase().includes(keyword) ||
+            (airport.name_jp && airport.name_jp.includes(keyword))
+        )){
+
             foundAirport = airport;
         }
     })
@@ -301,7 +307,7 @@ search.addEventListener('click', () => {
         }
         const position = [foundAirport.lat, foundAirport.lng];
          map.flyTo(position,11);
-         searchMarker = L.marker(position).addTo(map).bindPopup(foundAirport);
+         searchMarker = L.marker(position).addTo(map);
 
     }else{
         alert("空港が見つかりません")
