@@ -269,7 +269,8 @@ async function loadAirports(){
                 lng: lng,
                 name: (columns[3] || "").replace(/"/g, "").trim(),
                 city: (columns[10] || "").replace(/"/g, "").trim(),
-                name_jp: (columns[18] || "").replace(/"/g, "").trim()
+                name_jp: (columns[18] || "").replace(/"/g, "").trim(),
+                allInfo: row.toUpperCase()
                 };    
         }
 
@@ -278,7 +279,7 @@ async function loadAirports(){
 
     });
 
-    console.log(airports["NRT"]);
+    console.log(airports["KIX"]);
 }
 
 loadAirports();
@@ -291,11 +292,11 @@ search.addEventListener('click', () => {
     let foundAirport = null;
 
     Object.values(airports).forEach(airport => {
-        if(keyword && (
-            airport.name.toUpperCase().includes(keyword) || 
-            airport.code.toUpperCase().includes(keyword) ||
-            (airport.name_jp && airport.name_jp.includes(keyword))
-        )){
+        if(keyword && airport.allInfo.includes(keyword)
+            //airport.name.toUpperCase().includes(keyword) || 
+            //airport.code.toUpperCase().includes(keyword) ||
+            //(airport.name_jp && airport.name_jp.includes(keyword))
+        ){
 
             foundAirport = airport;
         }

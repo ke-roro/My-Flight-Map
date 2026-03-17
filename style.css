@@ -252,3 +252,33 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
+#airport-search {
+    top: 20px;
+    position: absolute;
+    display: flex;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+#airport-input {
+    outline: none;
+    padding: 3px 12px;
+    font-size: 15px;
+    border-radius: 20px;
+}
+
+#search-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+#search-btn:hover {
+    background-color: #0056b3;
+}
