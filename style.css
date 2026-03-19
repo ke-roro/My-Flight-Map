@@ -43,6 +43,7 @@
     color:#007bff;
     transform: translateY(-2px);/*ボタンを浮かせる*/
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
  }
 
  /*ボタンを押し込む演出*/
@@ -251,11 +252,11 @@
     background-color: #555;
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 }
 
 #airport-search {
-    top: 20px;
-    position: absolute;
+    position: static;
     display: flex;
     padding: 10px;
     border-radius: 30px;
@@ -281,4 +282,24 @@
 
 #search-btn:hover {
     background-color: #0056b3;
+}
+
+#search-result {
+    background-color: white;
+    overflow: auto;
+    max-height: 500px;
+    position: relative;
+    z-index: 500;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+#search-result li {
+   border: 1px dotted #555;
+}
+
+#search-result li:hover {
+    color:gray;
+    cursor: pointer;
 }
