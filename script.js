@@ -290,10 +290,21 @@ const search = document.getElementById("search-btn");
 const result = document.getElementById("search-result");
 //検索ボタン
 search.addEventListener('click', () => {
-    result.textContent = ("");
-    const keyword = document.getElementById("airport-input").value.toUpperCase();
-    let foundAirports = [];
+    searchAirport();
+    
+});
 
+//検索の予測変換
+const airportInput = document.getElementById("airport-input");
+airportInput.addEventListener("input", () => {
+    searchAirport();
+})
+
+
+function searchAirport() {
+    result.textContent = ("");
+    const keyword = airportInput.value.toUpperCase();
+    let foundAirports = [];
     Object.values(airports).forEach(airport => {
         if(keyword && airport.allInfo.includes(keyword)
         
@@ -303,13 +314,11 @@ search.addEventListener('click', () => {
         }
     })
 
-    //検索結果が複数の場合
     foundAirports.forEach(airport => {
         const li = document.createElement('li');
         li.textContent = airport.name + "/" + airport.city + "/" + airport.name_jp;
         result.appendChild(li);
-        
-        //検索結果からリストをクリックしたとき
+
         li.addEventListener('click', () => {
             const position = [airport.lat, airport.lng];
              if(searchMarker){
@@ -320,9 +329,8 @@ search.addEventListener('click', () => {
          map.flyTo(position,11);
         })
     })
-    
-    if(foundAirports.length === 0){
-        alert("空港が見つかりません")
+
+     if(foundAirports.length === 0){
+        result.textContent = ("空港が見つかりません")
     };
-    
-});
+}
