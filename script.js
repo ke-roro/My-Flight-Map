@@ -334,3 +334,5 @@ function searchAirport() {
         result.textContent = ("空港が見つかりません")
     };
 }
+
+//const newFlight = document.getElementById("flight-btn");
