@@ -16,7 +16,12 @@
 <body>
     <h1>MY Flight Map</h1>
 
-     <div id="sidebar">
+    <div id="sidebar">
+
+        <div id="new-flight">
+            <button id="flight-btn">フライト登録</button> 
+        </div>
+
         <div style="height: 85px;"></div>
 
         <div id="airport-search">
@@ -28,36 +33,36 @@
     
         <h3>フライト一覧</h3>
 
-        <div id="new-flight">
-            <button id="flight-btn">フライト登録</button>
-        </div>
-
         <div id="flight-menu">
             <button id="reset-btn">🌍 全体マップに戻る</button>
         </div>
 
     </div>
 
+        <div id="flight-addition">
+             <form>
+                 <label for="airport-from">出発地</label>
+                 <input type="text" id="airport-from">
+                        
+                <label for="airport-to">到着地</label>
+                <input type="text" id="airport-to">
+                    
+                <label for="flight-date">日付</label>
+                <input type="date" id="flight-date">
+                        
+                <label for="flight-number">便名</label>
+                <input type="text" id="flight-number">
+                            
+                    <div id="flight-add">
+                        <button id="new-add">追加</button>
+                    </div>
+                </form>
 
-    <div id="flight-additon">
-        <form>
-            <label for="airport-from">出発地</label>
-            <input type="text" id="airport-from">
-        
-            <label for="airport-to">到着地</label>
-            <input type="text" id="airport-to">
+                <div id="flight-close">
+                    <button id="close-btn">&times;</button>
+                </div>
+        </div>
     
-            <label for="flight-date">日付</label>
-            <input type="date" id="flight-date">
-        
-            <label for="flight-number">便名</label>
-            <input type="text" id="flight-number">
-            
-            <div id="flight-add">
-                <button id="new-add">追加</button>
-            </div>
-        </form>
-    </div>
 
 
     

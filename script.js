@@ -335,4 +335,18 @@ function searchAirport() {
     };
 }
 
-//const newFlight = document.getElementById("flight-btn");
+
+//新規旅行記録追加ボタン
+const newFlight = document.getElementById("flight-btn");
+ const flightAddition = document.getElementById("flight-addition");
+newFlight.addEventListener('click', () => {
+    flightAddition.style.display = "block";
+}) 
+
+//登録の中の閉じるボタン
+const flightClose = document.getElementById("flight-close")
+flightClose.addEventListener('click', () => {
+     flightAddition.style.display = "none";
+})
+       
+    
