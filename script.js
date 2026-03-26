@@ -341,6 +341,7 @@ const newFlight = document.getElementById("flight-btn");
  const flightAddition = document.getElementById("flight-addition");
 newFlight.addEventListener('click', () => {
     flightAddition.style.display = "block";
+    
 }) 
 
 //登録の中の閉じるボタン
@@ -348,5 +349,24 @@ const flightClose = document.getElementById("flight-close")
 flightClose.addEventListener('click', () => {
      flightAddition.style.display = "none";
 })
-       
+
+//新規旅行追加内容
+const flightAdd = document.getElementById("new-add")
+flightAdd.addEventListener('click', () => {
+    const from = document.getElementById("airport-from").value;
+    const to = document.getElementById("airport-to").value;
+    const date = document.getElementById("flight-date").value;
+    const flightNumber = document.getElementById("flight-number").value;
+
+    const newFlightData = {
+        from:from, to:to, date:date, flightNumber:flightNumber 
+    }
+        
+    const flights = JSON.parse(localStorage.getItem("flights")) || [];
+
+    flights.push(newFlightData);
+
+    localStorage.setItem("flights", JSON.stringify(flights));
+})
+
     
