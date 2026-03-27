@@ -369,4 +369,36 @@ flightAdd.addEventListener('click', () => {
     localStorage.setItem("flights", JSON.stringify(flights));
 })
 
+//ページを開いた瞬間に読み込む
+window.onload = () => {
+    const flights = JSON.parse(localStorage.getItem("flights")) || [];
+    
+    flights.forEach(flight => {
+        const btn = document.createElement('button');
+        const origin = [airports[flight.from].lat,airports[flight.from].lng]
+        const destination = [airports[flight.to].lat,airports[flight.to].lng]
+
+        btn.innerText = (flight.from + "→" + flight.to);
+        document.getElementById('flight-menu').appendChild(btn);
+        let isFlying = false;
+        let myLayer = L.layerGroup().addTo(map);
+
+        btn.addEventListener('click', () => {
+        if (isFlying){
+            myLayer.clearLayers();
+            isFlying = false;
+            btn.classList.remove('active-btn');
+
+         }else{
+            drawFlightLine(origin,destination,flight.to,myLayer,flight.from,[]);
+    }
+    })
+
+    
+    
+})
+
+}
+
+
     
