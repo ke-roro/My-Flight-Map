@@ -279,7 +279,7 @@ async function loadAirports(){
 
     });
 
-    console.log(airports["KIX"]);
+    loadFlightsFromStorage();
 }
 
 loadAirports();
@@ -354,12 +354,14 @@ flightClose.addEventListener('click', () => {
 const flightAdd = document.getElementById("new-add")
 flightAdd.addEventListener('click', () => {
     const from = document.getElementById("airport-from").value;
+    const fromIata = document.getElementById("airport-from-iata").value;
     const to = document.getElementById("airport-to").value;
+    const toIata = document.getElementById("airport-to-iata").value;
     const date = document.getElementById("flight-date").value;
     const flightNumber = document.getElementById("flight-number").value;
 
     const newFlightData = {
-        from:from, to:to, date:date, flightNumber:flightNumber 
+        from:from, to:to, date:date, flightNumber:flightNumber, fromIata:fromIata, toIata:toIata
     }
         
     const flights = JSON.parse(localStorage.getItem("flights")) || [];
@@ -369,36 +371,97 @@ flightAdd.addEventListener('click', () => {
     localStorage.setItem("flights", JSON.stringify(flights));
 })
 
-//ページを開いた瞬間に読み込む
-window.onload = () => {
-    const flights = JSON.parse(localStorage.getItem("flights")) || [];
+//ボタン生成
+function loadFlightsFromStorage() {
+        const flights = JSON.parse(localStorage.getItem("flights")) || [];
+        
+            flights.forEach(flight => {
+                const btn = document.createElement('button');
+                const origin = [airports[flight.fromIata].lat,airports[flight.fromIata].lng]
+                const destination = [airports[flight.toIata].lat,airports[flight.toIata].lng]
+
+                btn.innerText = (flight.from + "→" + flight.to);
+                document.getElementById('flight-menu').appendChild(btn);
+                let isFlying = false;
+                let myLayer = L.layerGroup().addTo(map);
+
+                btn.addEventListener('click', () => {
+                if (isFlying){
+                    myLayer.clearLayers();
+                    isFlying = false;
+                    btn.classList.remove('active-btn');
+
+                }else{
+                    drawFlightLine(origin,destination,flight.to,myLayer,flight.from,[]);
+            }
+            })
     
-    flights.forEach(flight => {
-        const btn = document.createElement('button');
-        const origin = [airports[flight.from].lat,airports[flight.from].lng]
-        const destination = [airports[flight.to].lat,airports[flight.to].lng]
-
-        btn.innerText = (flight.from + "→" + flight.to);
-        document.getElementById('flight-menu').appendChild(btn);
-        let isFlying = false;
-        let myLayer = L.layerGroup().addTo(map);
-
-        btn.addEventListener('click', () => {
-        if (isFlying){
-            myLayer.clearLayers();
-            isFlying = false;
-            btn.classList.remove('active-btn');
-
-         }else{
-            drawFlightLine(origin,destination,flight.to,myLayer,flight.from,[]);
-    }
     })
 
-    
-    
+    }
+
+
+
+
+//出発地の文字入力した時
+const fromResult = document.getElementById("from-result");
+const airportFrom = document.getElementById("airport-from");
+const airportFromIata = document.getElementById("airport-from-iata");
+airportFrom.addEventListener("input", () => {
+
+    fromResult.textContent = ("");
+    const keyword = airportFrom.value.toUpperCase();
+    let foundAirports = [];
+
+    Object.values(airports).forEach(airport => {
+        if(keyword && airport.allInfo.includes(keyword)
+        ){
+            foundAirports.push(airport);
+        }
+    })
+
+
+    foundAirports.forEach(airport => {
+        const li = document.createElement('li');
+        li.textContent = airport.name
+        fromResult.appendChild(li);
+
+        li.addEventListener('click', () => {
+            airportFrom.value = airport.name;
+            airportFromIata.value = airport.code;
+            fromResult.style.display = "none";
+
+        })
+    })
 })
 
-}
+//到着地の文字入力した時
+const toResult = document.getElementById("to-result");
+const airportTo = document.getElementById("airport-to");
+const airportToIata = document.getElementById("airport-to-iata");
+airportTo.addEventListener("input", () => {
+    toResult.textContent = ("");
+    const keyword = airportTo.value.toUpperCase();
+    let foundAirports = [];
+
+    Object.values(airports).forEach(airport => {
+        if(keyword && airport.allInfo.includes(keyword)
+        ){
+            foundAirports.push(airport);
+        }
+    })
 
 
-    
+    foundAirports.forEach(airport => {
+        const li = document.createElement('li');
+        li.textContent = airport.name
+        toResult.appendChild(li);
+
+        li.addEventListener('click', () => {
+            airportTo.value = airport.name;
+            airportToIata.value = airport.code;
+            toResult.style.display = "none";
+
+        })
+    })
+})
