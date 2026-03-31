@@ -369,16 +369,20 @@ flightAdd.addEventListener('click', () => {
     flights.push(newFlightData);
 
     localStorage.setItem("flights", JSON.stringify(flights));
+
+    loadFlightsFromStorage();
 })
 
 //ボタン生成
 function loadFlightsFromStorage() {
+        const flightMenu = document.getElementById("flight-menu");
+        flightMenu.textContent = ("");
         const flights = JSON.parse(localStorage.getItem("flights")) || [];
         
             flights.forEach(flight => {
                 const btn = document.createElement('button');
-                const origin = [airports[flight.fromIata].lat,airports[flight.fromIata].lng]
-                const destination = [airports[flight.toIata].lat,airports[flight.toIata].lng]
+                const origin = [parseFloat(airports[flight.fromIata].lat),parseFloat(airports[flight.fromIata].lng)]
+                const destination = [parseFloat(airports[flight.toIata].lat),parseFloat(airports[flight.toIata].lng)]
 
                 btn.innerText = (flight.from + "→" + flight.to);
                 document.getElementById('flight-menu').appendChild(btn);

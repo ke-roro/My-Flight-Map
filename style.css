@@ -329,9 +329,31 @@
 #flight-addition {
     display: none;
     position: fixed;
+    background-color: white;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
     z-index: 10000;
+    font-size: large;
+}
 
+
+#from-result, #to-result {
+    background-color: white;
+    overflow: auto;
+    max-height: 500px;
+    position: relative;
+    z-index: 500;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+#from-result li, #to-result li {
+    border: 1px dotted #555;
+}
+
+#from-result li:hover, #to-result li:hover {
+    color:gray;
+    cursor: pointer;
 }
