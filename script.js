@@ -226,7 +226,7 @@ async function loadFlightsFromSheet() {
 }
 
 // 実行
-loadFlightsFromSheet();
+//loadFlightsFromSheet();
 
 //三本線ボタンとサイドバー
 const hamburger = document.getElementById('hamburger-btn');
