@@ -345,8 +345,15 @@
     transform: translate(-50%,-50%);
     z-index: 10000;
     font-size: large;
+    width: 600px;
+    height: 400px;
+    padding: 10px;
 }
 
+#airport-from, #airport-to {
+    margin: 5px;
+    padding: 5px;
+}
 
 #from-result, #to-result {
     background-color: white;
@@ -366,4 +373,14 @@
 #from-result li:hover, #to-result li:hover {
     color:gray;
     cursor: pointer;
+}
+
+#flight-date {
+    margin: 5px;
+    padding: 5px;
+}
+
+#flight-number {
+    margin: 5px;
+    padding: 5px;
 }
