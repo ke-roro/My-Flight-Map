@@ -8,7 +8,7 @@
 #flight-menu {
     position: absolute;
     z-index: 100;
-    top: 200px;
+    top: 310px;
     display: flex;/*綺麗に並べる*/
     flex-direction: column;
     gap: 5px;
@@ -348,6 +348,12 @@
     width: 600px;
     height: 400px;
     padding: 10px;
+}
+
+#flight-addition form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 #airport-from, #airport-to {

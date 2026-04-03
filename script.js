@@ -154,7 +154,7 @@ function drawFlightLine(origin, destination, label, layer, originLabel, imgData)
 
 
 // スプレッドシート
-const spreadsheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSRTqFuGWAcCvkajztI6S8-hHvF84EBaplRkBOA5cGdUKOjPREFmRjZx7wOXhCUm1A5E045OEmiBKIj/pub?output=csv';
+/*const spreadsheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSRTqFuGWAcCvkajztI6S8-hHvF84EBaplRkBOA5cGdUKOjPREFmRjZx7wOXhCUm1A5E045OEmiBKIj/pub?output=csv';
 
 async function loadFlightsFromSheet() {
     console.log("📍 システム：スプレッドシートの読み込みを開始します...");
@@ -226,7 +226,7 @@ async function loadFlightsFromSheet() {
 }
 
 // 実行
-//loadFlightsFromSheet();
+loadFlightsFromSheet();*/
 
 //三本線ボタンとサイドバー
 const hamburger = document.getElementById('hamburger-btn');
@@ -396,8 +396,16 @@ function loadFlightsFromStorage() {
                     btn.classList.remove('active-btn');
 
                 }else{
+                    const bounds = L.latLngBounds([origin, destination]);//出発地と目的地の「枠」を計算
+                    map.flyToBounds(bounds, {
+                        padding: [50, 50],
+                        duration: 1.5//1.5秒かけて滑らかに移動
+                    })
                     drawFlightLine(origin,destination,flight.to,myLayer,flight.from,[]);
-            }
+                    isFlying = true;
+                    btn.classList.add('active-btn');
+            }       
+                    
             })
     
     })
