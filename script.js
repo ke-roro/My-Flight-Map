@@ -384,7 +384,8 @@ function loadFlightsFromStorage() {
                 const origin = [parseFloat(airports[flight.fromIata].lat),parseFloat(airports[flight.fromIata].lng)]
                 const destination = [parseFloat(airports[flight.toIata].lat),parseFloat(airports[flight.toIata].lng)]
 
-                btn.innerText = (flight.from + "→" + flight.to);
+                btn.innerText = (flight.date + "  " + flight.flightNumber + "\n" + flight.from + "→" + flight.to);
+                flight.flightNumber.slice(0, 2)
                 document.getElementById('flight-menu').appendChild(btn);
                 let isFlying = false;
                 let myLayer = L.layerGroup().addTo(map);
