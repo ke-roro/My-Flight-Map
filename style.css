@@ -390,3 +390,8 @@
     margin: 5px;
     padding: 5px;
 }
+
+img {
+    width: 20px;
+    height: auto;
+}
