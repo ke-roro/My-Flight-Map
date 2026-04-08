@@ -247,9 +247,9 @@ resetBtn.addEventListener('click', () => {
 });
 
 
-const airports = {};
 
 //airports.csv読み込み
+const airports = {};
 async function loadAirports(){
 
     const loadAirportsCSV = await fetch("airports.csv");
@@ -476,6 +476,63 @@ airportTo.addEventListener("input", () => {
             airportToIata.value = airport.code;
             toResult.style.display = "none";
 
+        })
+    })
+})
+
+
+//flight-number.csv読み込み
+const airlines = {};
+async function loadAirlines(){
+
+    const loadAirlinesCSV = await fetch("flight-number.csv");
+    const loadAirlinesData = await loadAirlinesCSV.text();
+    const rows = loadAirlinesData.split("\n").slice(1);
+
+    rows.forEach(row => {
+        const columns = row.split(",");
+        const airlineCode = (columns[0] || "").replace(/"/g,"").trim();
+        const airline = (columns[1] || "").replace(/"/g,"").trim();
+        const airlineJapanese = (columns[2] || "").replace(/"/g,"").trim();
+
+        airlines[airlineCode] = {
+            airlineCode: airlineCode,
+            airline: airline,
+            airlineJapanese: airlineJapanese,
+            allInfo: row.toUpperCase()
+        };
+
+    });
+}
+
+loadAirlines();
+
+//便名の文字を入力した時
+const numberResult = document.getElementById("number-result");
+const flightNumber = document.getElementById("flight-number");
+const flightNumberAirlineCode = document.getElementById("flight-number-airlineCode");
+
+flightNumber.addEventListener("input", () => {
+    numberResult.textContent = ("");
+    const keyword = flightNumber.value.toUpperCase();
+    let foundAirlines = [];
+
+    Object.values(airlines).forEach(airline => {
+        if(keyword && airline.allInfo.includes(keyword)
+        ){
+            foundAirlines.push(airline);
+        }
+    })
+
+    foundAirlines.forEach(airline => {
+        const li = document.createElement('li');
+        li.textContent = airline.airline + "/" + airline.airlineJapanese
+        numberResult.appendChild(li);
+        
+        li.addEventListener('click', () => {
+            flightNumber.value = airline.airlineCode
+            flightNumberAirlineCode.value = airline.airlineCode
+            numberResult.style.display = "none";
         })
     })
 })
