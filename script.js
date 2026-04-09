@@ -425,6 +425,7 @@ airportFrom.addEventListener("input", () => {
 
     fromResult.textContent = ("");
     const keyword = airportFrom.value.toUpperCase();
+    airportFromIata.value = "";
     let foundAirports = [];
 
     Object.values(airports).forEach(airport => {
@@ -456,6 +457,7 @@ const airportToIata = document.getElementById("airport-to-iata");
 airportTo.addEventListener("input", () => {
     toResult.textContent = ("");
     const keyword = airportTo.value.toUpperCase();
+    airportToIata.value = "";
     let foundAirports = [];
 
     Object.values(airports).forEach(airport => {
