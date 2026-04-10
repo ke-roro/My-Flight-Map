@@ -98,7 +98,8 @@
     box-shadow: 2px 0 5px rgba(0,0,0,0,3);
     z-index: 150;
     transition: 0.3s;
-    padding: 20px
+    padding: 20px;
+    overflow: auto;
 }
 
 #sidebar.open {
@@ -361,7 +362,7 @@
     padding: 5px;
 }
 
-#from-result, #to-result {
+#from-result, #to-result, #number-result {
     background-color: white;
     overflow: auto;
     max-height: 500px;
@@ -372,11 +373,11 @@
     border-radius: 10px;
 }
 
-#from-result li, #to-result li {
+#from-result li, #to-result li, #number-result li {
     border: 1px dotted #555;
 }
 
-#from-result li:hover, #to-result li:hover {
+#from-result li:hover, #to-result li:hover, #number-result li:hover {
     color:gray;
     cursor: pointer;
 }
