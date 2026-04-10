@@ -379,7 +379,7 @@ function loadFlightsFromStorage() {
         flightMenu.textContent = ("");
         const flights = JSON.parse(localStorage.getItem("flights")) || [];
         
-            flights.forEach(flight => {
+            flights.forEach((flight, index) => {
                 const btn = document.createElement('button');
                 const origin = [parseFloat(airports[flight.fromIata].lat),parseFloat(airports[flight.fromIata].lng)]
                 const destination = [parseFloat(airports[flight.toIata].lat),parseFloat(airports[flight.toIata].lng)]
