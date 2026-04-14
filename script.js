@@ -380,6 +380,7 @@ function loadFlightsFromStorage() {
         const flights = JSON.parse(localStorage.getItem("flights")) || [];
         
             flights.forEach((flight, index) => {
+                const flightItem = document.createElement('div');
                 const btn = document.createElement('button');
                 const deletebtn = document.createElement('button');
                 const origin = [parseFloat(airports[flight.fromIata].lat),parseFloat(airports[flight.fromIata].lng)]
@@ -387,10 +388,13 @@ function loadFlightsFromStorage() {
 
                 //btn.innerText = (flight.date + "  " + flight.flightNumber + "\n" + flight.from + "→" + flight.to);
                 const flightLogo = flight.flightNumber.slice(0, 2)
-                deletebtn.innerHTML = ("削除");
-                 document.getElementById('flight-menu').appendChild(deletebtn);
+                deletebtn.innerHTML = ("×");
+                flightItem.appendChild(deletebtn);
+                deletebtn.classList.add('delete-btn');
                 btn.innerHTML = (flight.date + "  " + "<img src=https://images.kiwi.com/airlines/64/" + flightLogo + ".png>" + flight.flightNumber + "\n" + flight.from + "→" + flight.to);
-                document.getElementById('flight-menu').appendChild(btn);
+                flightItem.appendChild(btn);
+                document.getElementById('flight-menu').appendChild(flightItem)
+                flightItem.classList.add('flight-item');
                 let isFlying = false;
                 let myLayer = L.layerGroup().addTo(map);
 
