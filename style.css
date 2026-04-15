@@ -8,7 +8,7 @@
 #flight-menu {
     position: absolute;
     z-index: 100;
-    top: 310px;
+    top: 350px;
     display: flex;/*綺麗に並べる*/
     flex-direction: column;
     gap: 5px;
@@ -241,17 +241,22 @@
 
 /*全体に戻る画面*/
 #reset-btn{
-    background-color: #333;
-    color: white;
+    background-color: #fff;
+    color: #444;
     font-weight: bold;
-    border: none;
+    border: 1px solid #eee;
+    border-radius: 8px;
     margin-bottom: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 #reset-btn:hover {
-    background-color: #555;
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
 
@@ -316,7 +321,7 @@
         font-weight: bold;
         border: 1px solid #eee;
         border-radius: 8px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         transition: all 0.3s ease;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }

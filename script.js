@@ -419,6 +419,7 @@ function loadFlightsFromStorage() {
                     
                 })    
                 deletebtn.addEventListener('click', () => {
+                    myLayer.clearLayers();
                     flights.splice(index,1);
                     localStorage.setItem("flights", JSON.stringify(flights));
                      loadFlightsFromStorage();
