@@ -553,3 +553,21 @@ flightNumber.addEventListener("input", () => {
         })
     })
 })
+
+//IndexedDB 
+const request = indexedDB.open("flightPhotos", 1);
+
+//初回作成時
+request.onupgradeneeded = (event) => {
+
+}
+
+//データベースが正常に開けた場合
+request.onsuccess = (event) => {
+
+}
+
+//データベースが開けなかった場合
+request.onerror = (event) => {
+
+}
