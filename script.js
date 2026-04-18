@@ -556,18 +556,20 @@ flightNumber.addEventListener("input", () => {
 
 //IndexedDB 
 const request = indexedDB.open("flightPhotos", 1);
-
+let db;
+ 
 //初回作成時
 request.onupgradeneeded = (event) => {
-
+    const db = event.target.result
+    db.createObjectStore("photos", { keyPath: "id", autoIncrement: true});
 }
 
 //データベースが正常に開けた場合
 request.onsuccess = (event) => {
-
+    db = event.target.result
 }
 
 //データベースが開けなかった場合
 request.onerror = (event) => {
-
+    console.error("エラー",event);
 }
