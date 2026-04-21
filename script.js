@@ -573,3 +573,10 @@ request.onsuccess = (event) => {
 request.onerror = (event) => {
     console.error("エラー",event);
 }
+
+//Base64に変換
+const reader = new FileReader();
+reader.readAsDataURL(file);
+reader.onload = () => {
+    const base64 = reader.result;
+}
