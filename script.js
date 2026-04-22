@@ -366,6 +366,8 @@ flightAdd.addEventListener('click', () => {
         
     const flights = JSON.parse(localStorage.getItem("flights")) || [];
 
+    savePhoto(photoFile.files[0],flights.length);
+
     flights.push(newFlightData);
 
     localStorage.setItem("flights", JSON.stringify(flights));
@@ -567,6 +569,7 @@ request.onupgradeneeded = (event) => {
 //データベースが正常に開けた場合
 request.onsuccess = (event) => {
     db = event.target.result
+    
 }
 
 //データベースが開けなかった場合
@@ -575,8 +578,19 @@ request.onerror = (event) => {
 }
 
 //Base64に変換
-const reader = new FileReader();
-reader.readAsDataURL(file);
-reader.onload = () => {
-    const base64 = reader.result;
+function savePhoto(file, index) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+        reader.onload = () => {
+            const base64 = reader.result;
+            const transaction = db.transaction(["photos"], "readwrite");
+            const store = transaction.objectStore("photos");
+            store.add({ flightIndex: index, photo: base64});
+        }
 }
+
+const photoFile = document.getElementById('photo-file');
+photoFile.addEventListener("change", () => {
+    
+})
+
