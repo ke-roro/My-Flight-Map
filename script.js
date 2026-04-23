@@ -73,6 +73,8 @@ function drawFlightLine(origin, destination, label, layer, originLabel, imgData)
             duration: 2, //2秒かけて動く
             easeLinearity: 0.25//動きの滑らかさ
         });
+
+
         setTimeout(() => {
             //HTMLの要素を捕まえる
             const overlay = document.getElementById('photo-overlay');
@@ -563,7 +565,8 @@ let db;
 //初回作成時
 request.onupgradeneeded = (event) => {
     const db = event.target.result
-    db.createObjectStore("photos", { keyPath: "id", autoIncrement: true});
+    const objectStore = db.createObjectStore("photos", { keyPath: "id", autoIncrement: true});
+    objectStore.createIndex("flightIndex", "flightIndex", { unique: false});
 }
 
 //データベースが正常に開けた場合
@@ -577,7 +580,7 @@ request.onerror = (event) => {
     console.error("エラー",event);
 }
 
-//Base64に変換
+//画像ファイルをBase64に変換
 function savePhoto(file, index) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -594,3 +597,13 @@ photoFile.addEventListener("change", () => {
     
 })
 
+//写真の読み込み
+function loadPhotos(flightIndex) {
+    const transaction = db.transaction(["photos"], "readonly")
+    const store = transaction.objectStore("photos");
+    const index = store.index("flightIndex");
+    const getRequest = index.getAll(flightIndex);
+        getRequest.onsuccess = () => {
+            const photos = getRequest.result;
+        }
+}
