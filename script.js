@@ -18,7 +18,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
 //出発地(origin)からの目的地（destination)を書く関数
-function drawFlightLine(origin, destination, label, layer, originLabel, imgData){
+function drawFlightLine(origin, destination, label, layer, originLabel, imgData, flightIndex){
     const route = [origin, destination];
     L.circleMarker(origin,{
     radius: 10,
@@ -74,6 +74,7 @@ function drawFlightLine(origin, destination, label, layer, originLabel, imgData)
             easeLinearity: 0.25//動きの滑らかさ
         });
 
+        loadPhotos(flightIndex);
 
         setTimeout(() => {
             //HTMLの要素を捕まえる
@@ -414,7 +415,7 @@ function loadFlightsFromStorage() {
                         padding: [50, 50],
                         duration: 1.5//1.5秒かけて滑らかに移動
                     })
-                    drawFlightLine(origin,destination,flight.to,myLayer,flight.from,[]);
+                    drawFlightLine(origin,destination,flight.to,myLayer,flight.from, [], index);
                     isFlying = true;
                     btn.classList.add('active-btn');
 
@@ -605,5 +606,6 @@ function loadPhotos(flightIndex) {
     const getRequest = index.getAll(flightIndex);
         getRequest.onsuccess = () => {
             const photos = getRequest.result;
+            const images = photos.map(p => p.photo)
         }
 }
