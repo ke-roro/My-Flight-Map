@@ -74,81 +74,8 @@ function drawFlightLine(origin, destination, label, layer, originLabel, imgData,
             easeLinearity: 0.25//動きの滑らかさ
         });
 
-        loadPhotos(flightIndex);
-
         setTimeout(() => {
-            //HTMLの要素を捕まえる
-            const overlay = document.getElementById('photo-overlay');
-            const gallery = document.getElementById('photo-gallery');
-            const title = document.getElementById('photo-title');
-
-            //中身をセット
-            gallery.innerHTML = ' '; //前に開いた時の写真を一度消して空に
-            title.innerText = label;
-
-            //スプレッドシートからのURLをバラバラにして無駄なものをとる
-            const rawImages = imgData ? imgData.split(',') : [];
-            const images = rawImages.map(url => url.replace(/^"|"$/g, '').trim()).filter(url => url !== "");
-
-            //写真の枚数によって表示を変える
-            if (images.length === 0) {
-                gallery.innerHTML = '<p>写真がありません</p>';
-            } else if (images.length === 1) {
-                //写真が１枚だけの時は矢印を表示しない
-                gallery.innerHTML = `<img src="${images[0]}" style="max-width: 100%; max-height: 70vh; border-radius: 8px;">`;
-            } else {
-                //写真が複数ある時はスライドショーを作る
-                let currentIndex = 0; //今「何枚目」を見ているか記憶
-
-                //HTMLに画像と矢印の枠組みを作り出す
-                gallery.innerHTML = `
-                <div style="position: relative; display: inline-block; max-width: 100%;">
-                    <button id="prev-btn" class="nav-btn">&#10094;</button> <img id="carousel-img" src="${images[0]}" style="max-width: 100%; max-height: 70vh; border-radius: 8px;">
-                    <button id="next-btn" class="nav-btn">&#10095;</button> </div>
-                <p id="photo-counter" style="margin-top: 10px; font-size: 0.9rem;">1 / ${images.length}</p>
-                `;
-
-                const prevBtn = document.getElementById('prev-btn');
-                const nextBtn = document.getElementById('next-btn');
-                const carouselImg = document.getElementById('carousel-img');
-                const counter = document.getElementById('photo-counter');
-
-                //画面と矢印の表示を更新する関数
-                const updateCarousel = () => {
-                    carouselImg.src = images[currentIndex];
-                    counter.innerText = `${currentIndex + 1} / ${images.length}`; //画像を入れ替える
-
-                    //１枚目の時は左矢印を隠す、最後の時は右矢印を隠す
-                    prevBtn.style.display = currentIndex === 0 ? 'none' : 'block';
-                    nextBtn.style.display = currentIndex === images.length -1 ? 'none' : 'block';
-                };
-
-                updateCarousel(); //最初に１回実行して見た目を整える
-
-                //左矢印を押したときの動作
-                prevBtn.onclick = () => {
-                    if (currentIndex > 0) {
-                        currentIndex--;//番号を一つ減らす
-                        updateCarousel();
-                    }
-                };
-
-                //右矢印を押した時の動作
-                nextBtn.onclick = () => {
-                    if (currentIndex < images.length - 1) {
-                        currentIndex++;//番号を増やす
-                        updateCarousel();
-                    }
-                };
-            }
-
-            //幕を開く
-            overlay.classList.remove('hidden'); //CSSの隠すしるしを取り除く
-
-            //閉じるボタンを使えるように
-            document.getElementById('close-overlay').onclick = () => {
-                overlay.classList.add('hidden'); //また「隠す」しるしを
-            } ;
+            loadPhotos(flightIndex, label);
         }, 2200);
     });
 
@@ -599,13 +526,81 @@ photoFile.addEventListener("change", () => {
 })
 
 //写真の読み込み
-function loadPhotos(flightIndex) {
+function loadPhotos(flightIndex,label) {
     const transaction = db.transaction(["photos"], "readonly")
     const store = transaction.objectStore("photos");
     const index = store.index("flightIndex");
     const getRequest = index.getAll(flightIndex);
+
         getRequest.onsuccess = () => {
             const photos = getRequest.result;
             const images = photos.map(p => p.photo)
+            const overlay = document.getElementById('photo-overlay');
+            const gallery = document.getElementById('photo-gallery');
+            const title = document.getElementById('photo-title');
+
+            //中身をセット
+            gallery.innerHTML = ' '; //前に開いた時の写真を一度消して空に
+            title.innerText = label;
+
+            //写真の枚数によって表示を変える
+            if (images.length === 0) {
+                gallery.innerHTML = '<p>写真がありません</p>';
+            } else if (images.length === 1) {
+                //写真が１枚だけの時は矢印を表示しない
+                gallery.innerHTML = `<img src="${images[0]}" style="max-width: 100%; max-height: 70vh; border-radius: 8px;">`;
+            } else {
+                //写真が複数ある時はスライドショーを作る
+                let currentIndex = 0; //今「何枚目」を見ているか記憶
+
+                //HTMLに画像と矢印の枠組みを作り出す
+                gallery.innerHTML = `
+                <div style="position: relative; display: inline-block; max-width: 100%;">
+                    <button id="prev-btn" class="nav-btn">&#10094;</button> <img id="carousel-img" src="${images[0]}" style="max-width: 100%; max-height: 70vh; border-radius: 8px;">
+                    <button id="next-btn" class="nav-btn">&#10095;</button> </div>
+                <p id="photo-counter" style="margin-top: 10px; font-size: 0.9rem;">1 / ${images.length}</p>
+                `;
+
+                const prevBtn = document.getElementById('prev-btn');
+                const nextBtn = document.getElementById('next-btn');
+                const carouselImg = document.getElementById('carousel-img');
+                const counter = document.getElementById('photo-counter');
+
+                //画面と矢印の表示を更新する関数
+                const updateCarousel = () => {
+                    carouselImg.src = images[currentIndex];
+                    counter.innerText = `${currentIndex + 1} / ${images.length}`; //画像を入れ替える
+
+                    //１枚目の時は左矢印を隠す、最後の時は右矢印を隠す
+                    prevBtn.style.display = currentIndex === 0 ? 'none' : 'block';
+                    nextBtn.style.display = currentIndex === images.length -1 ? 'none' : 'block';
+                };
+
+                updateCarousel(); //最初に１回実行して見た目を整える
+
+                //左矢印を押したときの動作
+                prevBtn.onclick = () => {
+                    if (currentIndex > 0) {
+                        currentIndex--;//番号を一つ減らす
+                        updateCarousel();
+                    }
+                };
+
+                //右矢印を押した時の動作
+                nextBtn.onclick = () => {
+                    if (currentIndex < images.length - 1) {
+                        currentIndex++;//番号を増やす
+                        updateCarousel();
+                    }
+                };
+            }
+
+            //幕を開く
+            overlay.classList.remove('hidden'); //CSSの隠すしるしを取り除く
+
+            //閉じるボタンを使えるように
+            document.getElementById('close-overlay').onclick = () => {
+                overlay.classList.add('hidden'); //また「隠す」しるしを
+            } ;
         }
 }
