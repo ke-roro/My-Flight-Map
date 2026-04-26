@@ -545,7 +545,7 @@ function loadPhotos(flightIndex,label) {
 
             //写真の枚数によって表示を変える
             if (images.length === 0) {
-                gallery.innerHTML = '<p>写真がありません</p>';
+                return;
             } else if (images.length === 1) {
                 //写真が１枚だけの時は矢印を表示しない
                 gallery.innerHTML = `<img src="${images[0]}" style="max-width: 100%; max-height: 70vh; border-radius: 8px;">`;
