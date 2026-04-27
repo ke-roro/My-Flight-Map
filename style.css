@@ -350,15 +350,15 @@
     transform: translate(-50%,-50%);
     z-index: 10000;
     font-size: large;
-    width: 600px;
-    height: 400px;
-    padding: 10px;
+    width: 650px;
+    height: 450px;
+    padding: 5px;
 }
 
 #flight-addition form {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
 }
 
 #airport-from, #airport-to {
@@ -472,4 +472,12 @@ img {
     border-radius: 50%;
     border: none;
     z-index: 10000;
+}
+
+
+
+#photo-file {
+    position: absolute;
+    bottom: 20px;
+    left:10px
 }
