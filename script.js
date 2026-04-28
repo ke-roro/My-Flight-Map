@@ -200,6 +200,7 @@ async function loadAirports(){
                 name: (columns[3] || "").replace(/"/g, "").trim(),
                 city: (columns[10] || "").replace(/"/g, "").trim(),
                 name_jp: (columns[18] || "").replace(/"/g, "").trim(),
+                iso_country:(columns[8] || "").replace(/"/g,"").trim(),
                 allInfo: row.toUpperCase()
                 };    
         }
@@ -603,4 +604,15 @@ function loadPhotos(flightIndex,label) {
                 overlay.classList.add('hidden'); //また「隠す」しるしを
             } ;
         }
+}
+
+//訪れた国カウント
+function countryCount() {
+    const countries = new Set();
+     const flights = JSON.parse(localStorage.getItem("flights")) || [];
+        flights.forEach(flight => {
+            countries.add(airports[flight.fromIata].iso_country);
+            countries.add(airports[flight.toIata].iso_country);
+})
+    console.log(countries.size);
 }
