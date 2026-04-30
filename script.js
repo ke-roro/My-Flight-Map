@@ -359,6 +359,7 @@ function loadFlightsFromStorage() {
                      })
             })
                     
+            countryCount();
 
     }
 
@@ -609,10 +610,11 @@ function loadPhotos(flightIndex,label) {
 //訪れた国カウント
 function countryCount() {
     const countries = new Set();
-     const flights = JSON.parse(localStorage.getItem("flights")) || [];
+    const flights = JSON.parse(localStorage.getItem("flights")) || [];
+    const countrycount = document.getElementById('country_count');
         flights.forEach(flight => {
             countries.add(airports[flight.fromIata].iso_country);
             countries.add(airports[flight.toIata].iso_country);
 })
-    console.log(countries.size);
+    countrycount.textContent = countries.size;
 }
