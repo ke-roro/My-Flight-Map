@@ -481,3 +481,48 @@ img {
     bottom: 20px;
     left:10px
 }
+
+#header {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+#visit_country {
+    position: relative;
+    background-color: #f8f9fa; /* うっすらグレーの背景で区切る */
+    padding: 20px 15px 25px 15px;
+    border-radius: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* ほんの少しだけ影をつけて浮き上がらせる */
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: bold;
+    text-align: center;
+    margin-left: 20px;
+}
+
+.country_label {
+    display: block; /* ここで改行させる */
+    text-align: left; /* 左寄せ */
+    font-size: 0.75rem;
+    color: #555;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+#country_count {
+    font-size: 1.6rem; /* 数字だけ大きく！ */
+    color: #007bff;
+    margin: 0 8px; /* 数字の左右に少し余白を作る */
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* 数字が綺麗に見えるフォント */
+    font-weight: 900;
+}
+
+.country_unit {
+    position: absolute; /* 箱の中で自由に動かせるようにする */
+    bottom: 8px;  /* 下から8pxの位置に固定 */
+    right: 12px;  /* 右から12pxの位置に固定 */
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: bold;
+}
