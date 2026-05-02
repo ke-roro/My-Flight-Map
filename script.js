@@ -613,8 +613,14 @@ function countryCount() {
     const flights = JSON.parse(localStorage.getItem("flights")) || [];
     const countrycount = document.getElementById('country_count');
         flights.forEach(flight => {
-            countries.add(airports[flight.fromIata].iso_country);
-            countries.add(airports[flight.toIata].iso_country);
+            if(airports[flight.fromIata].iso_country !== "JP"){
+            countries.add(airports[flight.fromIata].iso_country
+            )};
+
+            if(airports[flight.toIata].iso_country !== "JP"){
+            countries.add(airports[flight.toIata].iso_country
+            )};
+        
 })
     countrycount.textContent = countries.size;
 }
