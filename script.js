@@ -559,7 +559,7 @@ function loadPhotos(flightIndex,label) {
                 //HTMLに画像と矢印の枠組みを作り出す
                 gallery.innerHTML = `
                 <div style="position: relative; display: inline-block; max-width: 100%;">
-                    <button id="prev-btn" class="nav-btn">&#10094;</button> <img id="carousel-img" src="${images[0]}" style="max-width: 100%; max-height: 70vh; border-radius: 8px;">
+                    <button id="prev-btn" class="nav-btn">&#10094;</button> <img id="carousel-img" src="${images[0]}">
                     <button id="next-btn" class="nav-btn">&#10095;</button> </div>
                 <p id="photo-counter" style="margin-top: 10px; font-size: 0.9rem;">1 / ${images.length}</p>
                 `;
