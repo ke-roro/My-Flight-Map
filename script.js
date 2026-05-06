@@ -297,9 +297,10 @@ flightAdd.addEventListener('click', () => {
         
     const flights = JSON.parse(localStorage.getItem("flights")) || [];
 
-    if(photoFile.files[0] !== undefined){
-    savePhoto(photoFile.files[0],flights.length)};
-
+    Array.from(photoFile.files).forEach(file => {
+        savePhoto(file,flights.length);
+    });
+    
     flights.push(newFlightData);
 
     localStorage.setItem("flights", JSON.stringify(flights));
