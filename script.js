@@ -526,7 +526,18 @@ function savePhoto(file, index) {
 
 const photoFile = document.getElementById('photo-file');
 photoFile.addEventListener("change", () => {
-    
+    const photoResult = document.getElementById('photo-result');
+    photoResult.textContent = "";
+    Array.from(photoFile.files).forEach(file => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+            reader.onload = () => {
+                const base64 = reader.result;
+                const img = document.createElement("img");
+                img.src = base64;
+                photoResult.appendChild(img);
+            }
+    })
 })
 
 //写真の読み込み
