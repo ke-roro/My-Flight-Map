@@ -524,21 +524,28 @@ function savePhoto(file, index) {
         }
 }
 
+let selectedFiles = [];
 const photoFile = document.getElementById('photo-file');
+const photoResult = document.getElementById('photo-result');
 photoFile.addEventListener("change", () => {
-    const photoResult = document.getElementById('photo-result');
+    const newFiles = Array.from(photoFile.files);
+    selectedFiles = [...selectedFiles, ...newFiles];
     photoResult.textContent = "";
-    Array.from(photoFile.files).forEach(file => {
+
+    selectedFiles.forEach((file, index) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
             reader.onload = () => {
                 const base64 = reader.result;
                 const img = document.createElement("img");
                 img.src = base64;
+                img.dataset.index = index;
                 photoResult.appendChild(img);
-            }
-    })
-})
+            };
+    });
+
+    photoFile.value = "";
+});
 
 //写真の読み込み
 function loadPhotos(flightIndex,label) {
