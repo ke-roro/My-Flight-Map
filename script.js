@@ -297,13 +297,13 @@ flightAdd.addEventListener('click', () => {
         
     const flights = JSON.parse(localStorage.getItem("flights")) || [];
 
-    Array.from(photoFile.files).forEach(file => {
-        savePhoto(file,flights.length);
-    });
+    const newFlightIndex = flights.length;
     
     flights.push(newFlightData);
 
     localStorage.setItem("flights", JSON.stringify(flights));
+
+    savePhotosToDB(newFlightIndex);
 
     loadFlightsFromStorage();
 })
@@ -513,7 +513,7 @@ request.onerror = (event) => {
 }
 
 //画像ファイルをBase64に変換
-function savePhoto(file, index) {
+/*function savePhoto(file, index) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
         reader.onload = () => {
@@ -522,7 +522,7 @@ function savePhoto(file, index) {
             const store = transaction.objectStore("photos");
             store.add({ flightIndex: index, photo: base64});
         }
-}
+}*/
 
 let selectedFiles = [];
 const photoFile = document.getElementById('photo-file');
@@ -625,6 +625,31 @@ function loadPhotos(flightIndex,label) {
                 overlay.classList.add('hidden'); //また「隠す」しるしを
             } ;
         }
+}
+
+//複数写真を保存する
+function savePhotosToDB(flightIndex){
+    if(selectedFiles.length === 0)return;
+    const promises = selectedFiles.map(file => {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result)
+        });
+    });
+
+    Promise.all(promises).then(base64Images => {
+        const transaction = db.transaction(["photos"], "readwrite");
+        const store = transaction.objectStore("photos");
+        base64Images.forEach(base64 => {
+            store.add({flightIndex: flightIndex, photo: base64});
+        });
+
+        transaction.oncomplete = () => {
+            selectedFiles = [];
+            photoResult.innerHTML = "";
+        };
+    });
 }
 
 //訪れた国カウント
