@@ -353,7 +353,7 @@
     z-index: 10000;
     font-size: large;
     width: 650px;
-    height: 450px;
+    height: 470px;
     padding: 5px;
 }
 
@@ -533,7 +533,7 @@ img {
     display: flex;
     flex-wrap: wrap; 
     gap: 10px;      
-    padding-left: 250px;
+    padding-left: 20px;
 }
 
 /* プレビュー画像自体のデザイン */
@@ -544,4 +544,26 @@ img {
     border-radius: 6px;
     border: 2px solid #eee;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.custom-file-btn {
+    font-size: 20px;
+    display: inline-block;
+    background-color: #fff;
+    color: #444;
+    font-weight: bold;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.custom-file-btn:hover {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
+    transform: translateY(-2px);
+    cursor: pointer;
 }
