@@ -669,3 +669,17 @@ function countryCount() {
 })
     countrycount.textContent = countries.size;
 }
+
+//総飛行距離
+function flightDistance() {
+    const flights = JSON.parse(localStorage.getItem("flights")) || [];
+    let totalDistance = 0;
+    flights.forEach(flight => {
+        const latlng1 = L.latLng(airports[flight.fromIata].lat, airports[flight.fromIata].lng);
+        const latlng2 = L.latLng(airports[flight.toIata].lat, airports[flight.toIata].lng)
+        const distance = latlng1.distanceTo(latlng2);
+        totalDistance += distance;
+    })
+
+    totalDistance = totalDistance / 1000;
+}
