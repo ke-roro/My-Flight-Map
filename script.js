@@ -362,6 +362,7 @@ function loadFlightsFromStorage() {
             })
                     
             countryCount();
+            flightTotalDistance();
 
     }
 
@@ -671,8 +672,9 @@ function countryCount() {
 }
 
 //総飛行距離
-function flightDistance() {
+function flightTotalDistance() {
     const flights = JSON.parse(localStorage.getItem("flights")) || [];
+    const flightdistance = document.getElementById('distance_count');
     let totalDistance = 0;
     flights.forEach(flight => {
         const latlng1 = L.latLng(airports[flight.fromIata].lat, airports[flight.fromIata].lng);
@@ -682,4 +684,5 @@ function flightDistance() {
     })
 
     totalDistance = totalDistance / 1000;
+    flightdistance.textContent = totalDistance;
 }
