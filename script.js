@@ -683,6 +683,5 @@ function flightTotalDistance() {
         totalDistance += distance;
     })
 
-    totalDistance = totalDistance / 1000;
-    flightdistance.textContent = totalDistance;
+    flightdistance.textContent = Math.floor(totalDistance / 1000);
 }

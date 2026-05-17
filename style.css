@@ -492,10 +492,10 @@ img {
 
 #visit_country {
     position: relative;
-    background-color: #f8f9fa; /* うっすらグレーの背景で区切る */
+    background-color: #f8f9fa; 
     padding: 20px 15px 25px 15px;
     border-radius: 30px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* ほんの少しだけ影をつけて浮き上がらせる */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); 
     font-size: 0.85rem;
     color: #555;
     font-weight: bold;
@@ -504,8 +504,8 @@ img {
 }
 
 .country_label {
-    display: block; /* ここで改行させる */
-    text-align: left; /* 左寄せ */
+    display: block; 
+    text-align: left; 
     font-size: 0.75rem;
     color: #555;
     font-weight: bold;
@@ -513,17 +513,17 @@ img {
 }
 
 #country_count {
-    font-size: 1.6rem; /* 数字だけ大きく！ */
+    font-size: 1.6rem; 
     color: #007bff;
-    margin: 0 8px; /* 数字の左右に少し余白を作る */
-    font-family: 'Helvetica Neue', Arial, sans-serif; /* 数字が綺麗に見えるフォント */
+    margin: 0 8px; 
+    font-family: 'Helvetica Neue', Arial, sans-serif; 
     font-weight: 900;
 }
 
 .country_unit {
-    position: absolute; /* 箱の中で自由に動かせるようにする */
-    bottom: 8px;  /* 下から8pxの位置に固定 */
-    right: 12px;  /* 右から12pxの位置に固定 */
+    position: absolute; 
+    bottom: 8px;  
+    right: 12px;  
     font-size: 0.85rem;
     color: #555;
     font-weight: bold;
@@ -566,4 +566,43 @@ img {
     box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
     transform: translateY(-2px);
     cursor: pointer;
+}
+
+#flight_distance {
+    position: relative;
+    background-color: #f8f9fa; 
+    padding: 20px 15px 25px 15px;
+    border-radius: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); 
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: bold;
+    text-align: center;
+    margin-left: 20px;
+}
+
+.distance_label {
+    display: block; 
+    text-align: left; 
+    font-size: 0.75rem;
+    color: #555;
+    font-weight: bold;
+    letter-spacing: 1px;   
+}
+
+#distance_count {
+    font-size: 1.6rem; 
+    color: #007bff;
+    margin: 0 8px; 
+    font-family: 'Helvetica Neue', Arial, sans-serif; 
+    font-weight: 900;
+}
+
+.distance_unit {
+    position: absolute; 
+    bottom: 8px;  
+    right: 12px;  
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: bold;
 }
