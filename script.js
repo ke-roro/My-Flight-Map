@@ -685,3 +685,9 @@ function flightTotalDistance() {
 
     flightdistance.textContent = Math.floor(totalDistance / 1000);
 }
+
+//全て表示ボタン
+const Allbtn = document.getElementById('all-btn');
+Allbtn.addEventListener('click', () => {
+    
+})
