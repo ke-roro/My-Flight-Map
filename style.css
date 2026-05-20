@@ -8,7 +8,7 @@
 #flight-menu {
     position: absolute;
     z-index: 100;
-    top: 350px;
+    top: 380px;
     display: flex;/*綺麗に並べる*/
     flex-direction: column;
     gap: 5px;
