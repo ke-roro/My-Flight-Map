@@ -688,14 +688,24 @@ function flightTotalDistance() {
 
 //全て表示ボタン
 const Allbtn = document.getElementById('all-btn');
+let allLayer = [];
+let isShowingAll = false;
 Allbtn.addEventListener('click', () => {
     const flights = JSON.parse(localStorage.getItem("flights")) || [];
-    flights.forEach(flight => {
+    if (isShowingAll) {
+        allLayer.clearLayers();
+        isShowingAll = false;
+    }else{
+        allLayer = L.layerGroup().addTo(map);
+        flights.forEach(flight => {
             const origin = [parseFloat(airports[flight.fromIata].lat),parseFloat(airports[flight.fromIata].lng)]
             const destination = [parseFloat(airports[flight.toIata].lat),parseFloat(airports[flight.toIata].lng)]
                 new L.Geodesic([origin, destination], {
                     weight: 2,
                     color: 'blue'
-                }).addTo(map);
-    })
+                }).addTo(allLayer);
+    });
+    isShowingAll = true;
+    }
+    
 })
