@@ -704,6 +704,16 @@ Allbtn.addEventListener('click', () => {
                     weight: 2,
                     color: 'blue'
                 }).addTo(allLayer);
+
+                L.circleMarker(origin,{
+                    radius: 10,
+                    fillColor: "Green",
+                    color: "white",
+                    fillOpacity:0.9 
+                }).addTo(allLayer)
+
+                const destMarker = L.marker(destination).addTo(allLayer);
+
     });
     isShowingAll = true;
     }
